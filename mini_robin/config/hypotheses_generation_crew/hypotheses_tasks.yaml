@@ -1,0 +1,61 @@
+generate_queries_task:
+  description: >
+    Propose {num_queries} long-form, literature-ready biomedical research questions 
+    to support research into mechanistic cell culture assays for treating {topic}.
+    Make each query about 30+ words, scientifically precise, and separated by '<>'.
+    Avoid referring to specific drugs; focus on mechanisms, pathways, and relevant
+    biological processes that could inform therapeutic development.
+  expected_output: >
+    Output only a single List with {num_queries} search queries separated by '<>'.
+     Strictly Do not include any explanation or thoughts. Just return the string.
+
+  output_key: literature_queries
+
+
+  agent: literature_researcher
+
+
+propose_assays_task:
+  description: >
+    Propose {num_assays} in vitro assay strategies based on the following research queries:
+    use the queries from the previous step one by one to query the tool in the following format
+    
+    {
+      "query": "actual query"
+    }
+    
+    use the result to propose a diverse set of in vitro cell-culture assay strategies.
+  expected_output: >
+    A JSON array of proposals with "strategy_name" and "reasoning".
+    
+    Strictly Don't include any thoughts or explanations outside the JSON.
+  agent: assay_proposer
+
+  use_tools:
+    - query_generator
+
+hypotheses_task:
+  description: >
+    Write detailed scientific evaluations of each assay proposal. Include rationale,
+    biomedical evidence, past use, and overall assessment for each.
+  expected_output: >
+    
+    A json report each with Evaluation, Previous Use,
+    Biomedical Evidence, and Overall Assessment.
+    
+    Provide a structured JSON format using the following schema:
+
+    [{
+        "assay_name": {
+            "Evaluation": "[Detailed scientific evaluation of the assay proposal]",
+            "Previous Use": "[Evidence of past use in similar contexts]",
+            "Biomedical Evidence": "[Supporting biomedical literature and data]",
+            "Overall Assessment": "[Final assessment of the assay's potential]"
+        }, 
+    ]
+    Strictly keep this in JSON format. NO explanations or references outside the JSON.
+    Strictly Never say "I now can give a great answer" or similar phrases.
+    Strictly Don't include any of your own thoughts or explanations outside the markdown.Stick with the expected output.
+  agent: hypothesis_writer
+  output_file: hypotheses.json
+

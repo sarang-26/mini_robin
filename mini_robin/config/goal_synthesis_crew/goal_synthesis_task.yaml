@@ -1,0 +1,8 @@
+synthesize_goal_task:
+  description: >
+    From the best assay, write a single paragraph summarizing the goal of candidate
+    generation for {topic}.
+  expected_output: >
+    A paragraph describing the candidate generation goal.
+    Strictly Do not include any thoughts or explanations outside the paragraph.
+  agent: goal_synthesizer
