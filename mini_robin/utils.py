@@ -119,7 +119,7 @@ def compute_btl_scores(df: pd.DataFrame, item_col: str = "winner_id", opponent_c
     - opponent_col: Column name for loser IDs (default = 'loser_id').
 
     Returns:
-    - DataFrame with columns: 'item_id' and 'btl_score' (normalized).
+    - DataFrame with columns: ,'item_id' and 'btl_score' (normalized).
     """
 
     # Step 1: Extract pairwise outcomes
@@ -127,16 +127,15 @@ def compute_btl_scores(df: pd.DataFrame, item_col: str = "winner_id", opponent_c
 
     # Step 2: Get number of unique items
     unique_items = sorted(set(df[item_col]).union(set(df[opponent_col])))
-    n_items = max(unique_items) + 1  # assumes item IDs are 0-based
+    n_items = max(unique_items) + 1
 
-    # Step 3: Fit BTL model using Iterative Luce Spectral Ranking
+    # Step 3: Fit BTL model choix implementation - config used in Robin original repo
     theta = choix.lsr_pairwise(n_items=n_items, data=comparisons, alpha=0.1)
 
     # Step 4: Normalize to get scores between 0 and 1
     theta_exp = np.exp(theta)
     btl_scores = theta_exp / theta_exp.sum()
 
-    # Step 5: Return as DataFrame
     return pd.DataFrame({
         "item_id": list(range(n_items)),
         "btl_score": btl_scores
