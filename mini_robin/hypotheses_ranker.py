@@ -131,8 +131,3 @@ class HypothesesRanker:
             raise ValueError("No ranking results found. Call `.run_all_comparison()` first.")
         btl_scores = compute_btl_scores(self.ranker_result)
         return btl_scores
-
-
-
-
-

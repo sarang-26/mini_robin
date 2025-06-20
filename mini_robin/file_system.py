@@ -32,4 +32,3 @@ class FileSystem:
     def get_ranking_output_path(self) -> str:
         """Path to the final ranking output CSV file."""
         return os.path.join(self.ranker_results, "final_ranking_output.csv")
-

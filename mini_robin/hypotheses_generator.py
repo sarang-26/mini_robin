@@ -16,7 +16,6 @@ class HypothesesGenerator:
         """
         Parameters:
         - config (dict): Input config with 'topic', 'num_queries', 'num_assays', 'num_candidates'
-        - llm (LLM): Initialized LLM client
         - crew_runner_cls (Callable): Crew class to use for hypothesis generation
         """
         self.robin_config = robin_config
