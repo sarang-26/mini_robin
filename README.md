@@ -12,7 +12,7 @@ and ranking assays.
 ### WorkFlow of Mini Robin: 
 Implementation of the first loop of until ranking assays
 
-![Mini Robin Workflow](data/image/Blank diagram.png)
+![Mini Robin Workflow](data/image/flow.png)
 
 
 
