@@ -1,0 +1,37 @@
+ranking_task:
+  description: >
+    You are given {num_assays} assay proposals in a JSON object {hypotheses}.
+    Each entry  is a JSON object describing one assay, and contains the fields:
+    "Evaluation", "Previous Use", "Biomedical Evidence", and "Overall Assessment".
+
+    - Focus on scientific merit, experimental design, biomedical rationale, and methodological soundness.
+    - Do **not** use persuasive writing tone, buzzwords, or unstructured judgment.
+    - Be evidence-driven and concise.
+    
+    For every pair, produce one JSON object exactly following the schema below:
+
+    {
+      "Analysis": "[Detailed, evidence-based comparison of the two assays]",
+      "Reasoning": "[Which assay is better and why]",
+      "Winner": {name, id},
+      "Loser": {name, id}"
+    }
+
+    Your final output must be a **list** of these JSON objects — one per pair in pair_list.
+
+  expected_output: >
+    A list of structured JSON objects — one for each pair comparison — in **valid JSON format**.
+    
+    ❗️Do be biased by the order of the assays in the input list, evaluate them fairly based on the info and make judgement.
+    ❗️Do not include any markdown, explanation, headings, or commentary outside of the JSON.
+    ❗️Do not hallucinate any pairs — Dont say "I now can give a great answer" or similar
+    ❗️Do not output anything other than a list of JSON objects matching the schema exactly.
+
+    This JSON will be parsed programmatically. If it breaks formatting, the next stage of analysis will fail.
+
+  agent: assay_critic_expert
+  output_file: ranker.json
+
+
+
+
